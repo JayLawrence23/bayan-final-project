@@ -13,7 +13,8 @@ const houseSchema = new mongoose.Schema({
         {
             review_author: { type: String, required: true },
             review: { type: String, required: true },
-            rate: { type: Number }
+            rate: { type: Number },
+            date: { type : Date, default: Date.now },
         }
     ]
 })

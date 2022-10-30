@@ -1,5 +1,6 @@
 const House = require('../models/house');
 const { randImage } = require('./randomImage');
+const timeAgo = require('timeago.js');
 
 module.exports = {
     getHouses: async(req, res) => {
@@ -29,7 +30,8 @@ module.exports = {
         const { id } = req.params;
         try {
             const house = await House.findById(id);
-            res.render('houses/house', { house }) 
+            const reviewtime = timeAgo.format(house.review.date);
+            res.render('houses/house', { house, reviewTime: reviewtime }) 
         } catch (error) {
             console.log(error);
         }
