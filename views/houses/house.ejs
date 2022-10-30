@@ -1,0 +1,45 @@
+<%-include("../partials/head", { title: "SnyBNB"})-%>
+
+<%-include("../partials/navbar")-%>
+
+<main class="bg-slate-500">
+    <div>
+        <h2 class=""><%= house.housename %> </h2>
+        <p><span><%= house.review.length %> reviews</span> Location: <%= house.address %> </p>
+    </div>
+
+    <div>
+        <img src="<%= house.img %>" alt="House">
+    </div>
+
+    <div>
+        <h4>Price: <%= house.price %> per night </h4>
+    </div>
+
+    <div>
+        <h5>Description:</h5>
+        <p><%= house.desc %> </p>
+    </div>
+
+    <% for(let r of house.review) { %>
+        <div>
+            <div>
+                <p><%= r.review_author %> </p>
+                <p><%= r.rate %> </p>
+            </div>
+            <p><%= r.review %> </p>
+        </div>
+    <% }%> 
+
+    <!-- Add Comments -->
+    <div>
+        <form action="/houses/<%= house._id %>/addreview" method="post">
+            <p>Add Review</p>
+            
+            <input type="text" name="review">
+            <button>Post</button>
+        </form>
+    </div>
+</main>
+
+<%-include("../partials/footer")-%>

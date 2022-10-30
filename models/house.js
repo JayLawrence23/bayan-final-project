@@ -7,6 +7,15 @@ const houseSchema = new mongoose.Schema({
     price: { type: Number, required: true, min: 0 },
     date:  { type : Date, default: Date.now },
     address: { type: String, required: true },
+    img: { type: String },
+    guest: { type: Number, required: true, min: 0 },
+    review: [
+        {
+            review_author: { type: String, required: true },
+            review: { type: String, required: true },
+            rate: { type: Number }
+        }
+    ]
 })
 
 const House = mongoose.model('House', houseSchema);

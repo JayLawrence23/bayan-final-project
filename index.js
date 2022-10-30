@@ -8,6 +8,8 @@ const dotenv = require('dotenv')
 
 const houseRoutes = require('./routes/house');
 
+const House = require('./models/house')
+
 dotenv.config();
 
 app.use(express.json());
@@ -20,11 +22,21 @@ app.use(express.static(path.join(__dirname, '/public')))
 app.set("view engine", "ejs");
 app.set('views', path.join(__dirname, 'views'));
 
-// routers
-app.get("/", (req, res) => {
-  res.render("index");
-});
+// to view all listings
+app.get('/', async (req, res) => {
+    try {
+        const house = await House.find({});
+        res.render('index', { house }) 
+    } catch (error) {
+        console.log(error);
+    }
+})
 
+app.get('/new', (req, res) => {
+    res.render('houses/new');
+})
+
+// routers
 app.use('/houses', houseRoutes);
 
 // Redirect to specific house
@@ -41,10 +53,6 @@ app.get('/a/:listing', (req, res) => {
 app.post('/listhouse', (req, res) => {
   console.log(req.body);
   res.redirect('/list');
-})
-
-app.get('/lists', (req, res) => {
-  res.render('/');
 })
 
 

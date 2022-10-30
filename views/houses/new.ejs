@@ -1,0 +1,39 @@
+<%-include("../partials/head", { title: "List a house"})-%>
+
+<%-include("../partials/navbar")-%>
+
+<main class="">
+    <div>
+        <h2>List you House on SynBNB</h2>
+    </div>
+
+    <form action="/houses/new" method="post">
+        <div>
+            <section>
+                <label for="housename">Name of House:</label>
+                <input type="text" name="housename">
+            </section>
+            <section>
+                <label for="desc">Description:</label>
+                <textarea name="desc" id="desc" cols="30" rows="10">
+                </textarea>
+            </section>
+            <section>
+                <label for="address">Address:</label>
+                <input type="text" name="address">
+            </section>
+            <section>
+                <label for="guest">Number of Guest:</label>
+                <input type="number" min="1" name="guest">
+            </section>
+            <section>
+                <label for="price">Price:</label>
+                <input type="number" min="1" step="any" name="price">
+            </section>
+        </div>
+
+        <button>Add to List</button>
+    </form>
+</main>
+
+<%-include("../partials/footer")-%>
