@@ -62,15 +62,19 @@
     <img class="rounded-2xl h-96 object-cover w-full" src="<%= listing.img %>" alt="listing">
 </div>
 
-<div class="flex flex-col justify-between md:flex-row flex-col w-full">
-    <div class="max-w-3xl bg-gray-300">
-        <h5>Listing Description:</h5>
+<div class="flex flex-col justify-between md:flex-row flex-col w-full mt-2">
+    <div class="max-w-full">
+        <h5 class="font-medium">Listing Description:</h5>
         <p><%= listing.desc %> </p>
     </div>
 
-    <div class="w-96 shadow-md">
-        <h4>Price: <%= listing.price %> per night </h4>
-        <p><%= listing.review.length %> reviews</p>
+    <div class="w-96 shadow-md p-4 rounded-2xl">
+        <div class="flex justify-between pb-5">
+            <h4 class="font-semibold">Price: <%= listing.price %>/night </h4>
+            <p><%= listing.review.length %> reviews</p>
+        </div>
+
+        <button class="bg-synbnb text-white rounded-full py-2 px-4 shadow-md w-full">Reserve Now</button>
     </div>
 </div>
 
