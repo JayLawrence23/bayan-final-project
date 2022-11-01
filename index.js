@@ -5,16 +5,20 @@ const path = require('path');
 const mongoose = require('mongoose');
 const methodOverride = require('method-override')
 const dotenv = require('dotenv')
+const ejsMate = require('ejs-mate')
 
-const houseRoutes = require('./routes/house');
+// Routes
+const listingRoutes = require('./routes/listing');
 
-const House = require('./models/house')
+const Listing = require('./models/listing')
+const cities = require('./seeds/cities')
 
 dotenv.config();
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(methodOverride('_method'));
+app.engine('ejs', ejsMate);
 
 // design file
 app.use(express.static(path.join(__dirname, '/public')))
@@ -25,21 +29,21 @@ app.set('views', path.join(__dirname, 'views'));
 // to view all listings
 app.get('/', async (req, res) => {
     try {
-        const house = await House.find({});
-        res.render('index', { house }) 
+        const listing = await Listing.find({});
+        res.render('index', { listing }) 
     } catch (error) {
         console.log(error);
     }
 })
-
-app.get('/new', (req, res) => {
-    res.render('houses/new');
+// router of web pages
+app.get('/l/new', (req, res) => { 
+    res.render('listings/new', { cities }); 
 })
 
 // routers
-app.use('/houses', houseRoutes);
+app.use('/l', listingRoutes);
 
-// Redirect to specific house
+// Redirect to specific listing
 app.get('/a/:listing', (req, res) => {
   const { listing } = req.params;
   if(data){
@@ -48,13 +52,6 @@ app.get('/a/:listing', (req, res) => {
       res.render('notfound');
   }
 })
-
-// add new house
-app.post('/listhouse', (req, res) => {
-  console.log(req.body);
-  res.redirect('/list');
-})
-
 
 // server listening
 mongoose.connect(process.env.CONNECTION_URL, { useNewUrlParser: true, useUnifiedTopology: true })

@@ -1,8 +1,19 @@
-<header class="flex">
-    <div class="">
-        <img class="" src="images/icon.png" alt="logo">
-    </div>
-    <div>
+<header class="h-24 w-full relative z-30 items-center border-b-[1px]">
+    <div class="flex items-center justify-between h-full max-w-7xl mx-auto p-5 px-7 md:px-12 ">
+        <a href="/">
+            <div class="flex items-center">
+                <img class="h-8 w-8" src="/images/icon.png" alt="logo">
+                <h1 class="ml-1 hidden text-synbnb font-bold text-lg md:block">synbnb</h1>
+            </div>
+        </a>
+        <div class="flex items-center justify-evenly shadow-md px-4 py-3 rounded-full divide-x">
+           <a class="text-xs tracking-wider font-medium text-gray-700 pr-2" href="/">View Listing</a> 
+           <a class="text-xs tracking-wider font-medium text-gray-700 pl-2" href="/l/new">Add Listing</a>
+        </div>
 
+        <div>
+            <a class="bg-synbnb py-2 px-4 text-white rounded-full text-xs mr-2" href="/">Register Now</a>
+            <a class="text-xs text-gray-800 font-medium" href="/">Login</a>
+        </div>
     </div>
 </header>

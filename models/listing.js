@@ -1,12 +1,12 @@
 const mongoose = require('mongoose');
 
-const houseSchema = new mongoose.Schema({
-    housename: { type: String, required: true },
+const listingSchema = new mongoose.Schema({
+    name: { type: String, required: true },
     username: { type: String, required: true },
     desc: { type: String, required: true },
     price: { type: Number, required: true, min: 0 },
     date:  { type : Date, default: Date.now },
-    address: { type: String, required: true },
+    location: { type: String, required: true },
     img: { type: String },
     guest: { type: Number, required: true, min: 0 },
     review: [
@@ -19,6 +19,6 @@ const houseSchema = new mongoose.Schema({
     ]
 })
 
-const House = mongoose.model('House', houseSchema);
+const listing = mongoose.model('Listing', listingSchema);
 
-module.exports = House;
+module.exports = listing;

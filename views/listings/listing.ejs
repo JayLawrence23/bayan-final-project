@@ -1,0 +1,122 @@
+<% layout('/layouts/boilerplate') -%> 
+<script src="dist/timeago.min.js"></script>
+
+<div class="flex justify-between">
+    <div>
+        <h2 class="font-bold text-xl"><%= listing.name %> </h2>
+        <p class="text-sm font-normal">
+            <span>
+                <lord-icon
+                    src="https://cdn.lordicon.com/whttoese.json"
+                    <% if(listing.review.length > 0) { %> 
+                    trigger="loop"
+                    delay="1000"
+                    <% } else { %> 
+                    trigger="morph"
+                    <% } %> 
+                    class="p-1 mr-1"
+                    colors="primary:#ee6d66,secondary:#FF5A5F"
+                    style="width:20px;height:20px">
+                </lord-icon>
+                <%= listing.review.length %> reviews
+            </span> 
+            <lord-icon
+                src="https://cdn.lordicon.com/elzslyvl.json"
+                trigger="loop"
+                delay="2800"
+                class="p-1"
+                colors="primary:#ee6d66,secondary:#ff5a5f"
+                state="hover-jump"
+                style="width:20px;height:20px">
+            </lord-icon>
+            Location: <%= listing.location %>, Philippines
+        </p>
+    </div>
+
+    <div class="relative">
+        <button id="dropdownDefault" data-dropdown-toggle="dropdown" type="button" onclick="myFunction()">  
+            <lord-icon
+                src="https://cdn.lordicon.com/hwuyodym.json"
+                trigger="hover"
+                class="dropbtn"
+                colors="primary:#242424"
+                style="width:20px;height:20px">
+            </lord-icon>
+        </button>
+        <div id="dropdown" class="absolute hidden z-10 dropdown-content border-[1px] right-0 rounded-2xl bg-white">
+            <ul aria-labelledby="dropdownDefault">
+                <li class="border-b-[1px] p-2">
+                    <a class="text-xs" href="/l/<%= listing._id %>/edit">Edit Listing</a>
+                </li>
+                <li>
+                    <form action="/l/<%= listing._id %>/delete?_method=DELETE" method="post">
+                        <button class="text-xs text-red-400 pt-2 px-2">Delete Permanently</button>
+                    </form>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<div class="my-4">
+    <img class="rounded-2xl h-96 object-cover w-full" src="<%= listing.img %>" alt="listing">
+</div>
+
+<div class="flex flex-col justify-between md:flex-row flex-col w-full">
+    <div class="max-w-3xl bg-gray-300">
+        <h5>Listing Description:</h5>
+        <p><%= listing.desc %> </p>
+    </div>
+
+    <div class="w-96 shadow-md">
+        <h4>Price: <%= listing.price %> per night </h4>
+        <p><%= listing.review.length %> reviews</p>
+    </div>
+</div>
+
+<div>
+    <h5>Reviews</h5>
+
+    <% for(let r of listing.review) { %>
+        <div>
+            <div>
+                <p><%= r.review_author %> </p>
+                <p><%= r.rate %> </p>
+            </div>
+            <p><%= r.review %> </p>
+    
+        </div>
+    <% }%> 
+
+    <!-- Add Comments -->
+    <div>
+        <form action="/l/<%= listing._id %>/addreview" method="post">
+            <p>Add Review</p>
+            
+            <input type="text" name="review">
+            <button>Post</button>
+        </form>
+    </div>
+</div>
+<script>
+    /* When the user clicks on the button, 
+    toggle between hiding and showing the dropdown content */
+    function myFunction() {
+      document.getElementById("dropdown").classList.toggle("hidden");
+    }
+    
+    // Close the dropdown if the user clicks outside of it
+    window.onclick = function(event) {
+      if (!event.target.matches('.dropbtn')) {
+        var dropdowns = document.getElementsByClassName("dropdown-content");
+        var i;
+        for (i = 0; i < dropdowns.length; i++) {
+          var openDropdown = dropdowns[i];
+          console.log(event.target)
+          if (!openDropdown.classList.contains('hidden')) {
+            openDropdown.classList.add('hidden');
+          }
+        }
+      }
+    }
+</script>

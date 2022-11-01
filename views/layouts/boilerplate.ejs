@@ -1,0 +1,54 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./styles/style.css" type="text/css" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,typography,aspect-ratio,line-clamp"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              synbnb: '#FF5A5F',
+            }
+          }
+        }
+      }
+    </script>
+    <style type="text/tailwindcss">
+      @layer utilities {
+        .content-auto {
+          content-visibility: auto;
+        }
+        .listing-button {
+          padding-block: 4px;
+          padding-inline: 13px;
+          background-color: #F6F4F5;
+          font-size: 1.12rem;
+          border-radius: 30px;
+          box-shadow: rgba(17, 17, 26, 0.1) 0px 4px 16px, rgba(17, 17, 26, 0.05) 0px 8px 32px;
+          color: #232323;
+          font-weight: 500;
+          transition: .1s ease-in-out;
+        }
+        .listing-button:hover {
+          margin-left: 4px;
+
+        }
+      }
+    </style>
+    <script src="https://cdn.lordicon.com/qjzruarw.js"></script>
+    <title>SynBNB</title>
+  </head>
+</html>
+<body>
+  <%- include("../partials/navbar")-%>
+  <main class="mx-auto p-5 px-7 md:px-12 max-w-7xl">
+    <%- body %>
+  </main>
+  <%- include("../partials/footer")-%>
+</body>
+</html>
+    

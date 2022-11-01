@@ -1,26 +1,28 @@
-<%-include("../partials/head", { title: "List a house"})-%>
-
-<%-include("../partials/navbar")-%>
+<% layout('/layouts/boilerplate') -%> 
 
 <main class="">
     <div>
-        <h2>List you House on SynBNB</h2>
+        <h2>List you listing on SynBNB</h2>
     </div>
 
-    <form action="/houses/new" method="post">
+    <form action="/l/new" method="post">
         <div>
             <section>
-                <label for="housename">Name of House:</label>
-                <input type="text" name="housename">
+                <label for="name">Name of listing:</label>
+                <input type="text" name="name">
             </section>
             <section>
                 <label for="desc">Description:</label>
-                <textarea name="desc" id="desc" cols="30" rows="10">
+                <textarea name="desc" id="desc" cols="30" rows="5">
                 </textarea>
             </section>
             <section>
-                <label for="address">Address:</label>
-                <input type="text" name="address">
+                <label for="location">Location:</label>
+                <select name="location" id="location">
+                    <% for(let c of cities) { %> 
+                        <option value="<%= `${c.city}, ${c.admin_name}` %>"> <%= `${c.city}, ${c.admin_name}` %> </option>
+                    <% } %> 
+                </select>
             </section>
             <section>
                 <label for="guest">Number of Guest:</label>
@@ -35,5 +37,3 @@
         <button>Add to List</button>
     </form>
 </main>
-
-<%-include("../partials/footer")-%>

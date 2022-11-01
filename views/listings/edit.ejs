@@ -1,0 +1,39 @@
+<% layout('/layouts/boilerplate') -%> 
+
+<main class="">
+    <div>
+        <h2>Edit your listing</h2>
+    </div>
+
+    <form action="/l/<%= listing._id%>?_method=PUT" method="post">
+        <div>
+            <section>
+                <label for="name">Name of listing:</label>
+                <input type="text" name="name" value="<%= listing.name %> ">
+            </section>
+            <section>
+                <label for="desc">Description:</label>
+                <textarea name="desc" id="desc" cols="30" rows="5"><%= listing.desc %> 
+                </textarea>
+            </section>
+            <section>
+                <label for="location">Location:</label>
+                <select name="location" id="location">
+                    <% for(let c of cities) { %> 
+                    <option value="<%= `${c.city}, ${c.admin_name}` %>" <%= listing.location === `${c.city}, ${c.admin_name}` ? 'selected' : '' %> > <%= `${c.city}, ${c.admin_name}` %> </option>
+                    <% } %> 
+                </select>
+            </section>
+            <section>
+                <label for="guest">Number of Guest:</label>
+                <input type="number" min="1" name="guest" value="<%= listing.guest %>">
+            </section>
+            <section>
+                <label for="price">Price:</label>
+                <input type="number" min="1" step="any" name="price" value="<%= listing.price %>">
+            </section>
+        </div>
+
+        <button>Update List</button>
+    </form>
+</main>

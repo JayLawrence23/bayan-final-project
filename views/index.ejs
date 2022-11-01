@@ -1,32 +1,31 @@
-<%-include("./partials/head", { title: "SynBNB"})-%>
-  <%-include("./partials/navbar")-%>
-  
-  <main class="bg-slate-500">
-    <h1 class="font-extrabold text-center text-4xl">Hello World</h1>
-    <p class="text-center">Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolore, modi.</p>
+<% layout('/layouts/boilerplate') -%> 
 
-    <div>
-      <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quia, odio culpa cupiditate, 
-        incidunt vitae provident recusandae corporis beatae, non ad suscipit iusto tempora veritatis quaerat delectus doloremque aspernatur ducimus natus.</p>
-    </div>
-
-    <% for(let h of house) { %>
-      <a href="/houses/<%= h._id %> ">
-        <div>
-          <div>
-            <img src="<%= h.img %> " alt="">
-          </div>
-    
-          <div>
-            <h5><%= h.address %> </h5>
-            <h3><%= h.housename %> </h3>
-    
-            <p><%= h.guest %>  guests</p>
-            <h4>₱ <%= h.price %>/night</h4>
-          </div>
+<% for(let list of listing) { %>
+  <a href="/l/<%= list._id %> ">
+    <div class="flex my-3 mx-2 pb-5 border-b-[0.3px] border-solid border-gray-300">
+      <div class="relative bg-[#787777] rounded-2xl">
+        <img class="h-[175px] w-[230px] object-cover rounded-2xl mix-blend-overlay" src="<%= list.img %> " alt="house-image">
+        <div class="absolute top-3 right-3">
+          <lord-icon
+            src="https://cdn.lordicon.com/pnhskdva.json"
+            trigger="hover"
+            colors="primary:#ffffff"
+            style="width:20px;height:20px">
+          </lord-icon>
         </div>
-      </a>
-    <% } %> 
-  </main>
+      </div>
 
-<%-include("./partials/footer")-%>
+      <div class="flex flex-col p-4">
+        <div>
+          <h5 class="text-xs"><%= list.location %> </h5>
+          <h3 class="font-bold"><%= list.name %> </h3>
+        </div>
+
+        <div>
+          <p class="font-normal text-xs text-gray-400"><%= list.guest %>  guests</p>
+          <h4 class="font-semibold">₱<%= list.price %>/night</h4>
+        </div>
+      </div>
+    </div>
+  </a>
+<% } %> 
