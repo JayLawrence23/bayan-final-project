@@ -1,6 +1,14 @@
 <% layout('/layouts/boilerplate') -%> 
 <script src="dist/timeago.min.js"></script>
 
+<% 
+let rating = 0;
+let ratings = 0;
+ for(let r of listing.review) { 
+    rating += r.rate;
+    ratings = rating/listing.review.length;
+}%> 
+
 <div class="flex justify-between">
     <div>
         <h2 class="font-bold text-xl"><%= listing.name %> </h2>
@@ -18,7 +26,10 @@
                     colors="primary:#ee6d66,secondary:#FF5A5F"
                     style="width:20px;height:20px">
                 </lord-icon>
-                <%= listing.review.length %> reviews
+                <%= ratings %> •&nbsp; 
+                <span class="underline underline-offset-1">
+                    <a href="#reviews"><%= listing.review.length %> reviews</a>
+                </span>
             </span> 
             <lord-icon
                 src="https://cdn.lordicon.com/elzslyvl.json"
@@ -62,7 +73,7 @@
     <img class="rounded-2xl h-96 object-cover w-full" src="<%= listing.img %>" alt="listing">
 </div>
 
-<div class="flex flex-col justify-between md:flex-row flex-col w-full mt-2">
+<div class="flex flex-col justify-between md:flex-row flex-col w-full mt-2 border-b-[1px] pt-2 pb-5">
     <div class="max-w-full">
         <h5 class="font-medium">Listing Description:</h5>
         <p><%= listing.desc %> </p>
@@ -74,31 +85,97 @@
             <p><%= listing.review.length %> reviews</p>
         </div>
 
-        <button class="bg-synbnb text-white rounded-full py-2 px-4 shadow-md w-full">Reserve Now</button>
+        <button class="listing-button w-full">Reserve Now</button>
     </div>
 </div>
 
-<div>
-    <h5>Reviews</h5>
-
-    <% for(let r of listing.review) { %>
-        <div>
-            <div>
-                <p><%= r.review_author %> </p>
-                <p><%= r.rate %> </p>
+<div id="reviews" class="py-4">
+    <h4 class="font-semibold text-lg mb-3">
+        <lord-icon
+            src="https://cdn.lordicon.com/whttoese.json"
+            <% if(listing.review.length > 0) { %> 
+            trigger="loop"
+            delay="1000"
+            <% } else { %> 
+            trigger="morph"
+            <% } %> 
+            class="p-1 mr-1"
+            colors="primary:#ee6d66,secondary:#FF5A5F"
+            style="width:22px;height:22px">
+        </lord-icon>
+        <%= ratings %> •&nbsp; 
+        <%= listing.review.length %> Reviews
+    </h4> 
+    <div class="grid gap-4 grid-cols-2 border-b-[1px] py-3">
+        <% for(let r of listing.review) { %>
+            <div class="py-3">
+                <div class="flex">
+                    <div class="rounded-full bg-gray-50 p-2 mr-2 h-full">
+                        <lord-icon
+                            src="https://cdn.lordicon.com/ljvjsnvh.json"
+                            trigger="loop"
+                            delay="2000"
+                            colors="primary:#e83a30,secondary:#ff5a5f"
+                            stroke="35"
+                            state="hover-2"
+                            style="width:35px;height:35px">
+                        </lord-icon>
+                    </div>
+                    <div>
+                        <p class="font-semibold"><%= r.review_author %></p>
+                        <p class="text-sm font-light text-gray-500"><%= moment(r.date).startOf('hour').fromNow(); %> </p>
+                        <p class="text-sm font-base flex items-center mt-1"><span class="bg-synbnb px-2 rounded-full text-white"><%= r.rate %> </span>
+                        <% for(let x = 1; x <= r.rate; x++) { %> 
+                            <svg class="w-5 h-5 text-yellow-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
+                            </svg>
+                        <% } %> 
+                        </p>
+                    </div>
+                </div>
+                <p class="mt-2"><%= r.review %> </p>
+        
             </div>
-            <p><%= r.review %> </p>
-    
-        </div>
-    <% }%> 
+        <% }%> 
+    </div>
 
-    <!-- Add Comments -->
-    <div>
-        <form action="/l/<%= listing._id %>/addreview" method="post">
-            <p>Add Review</p>
-            
-            <input type="text" name="review">
-            <button>Post</button>
+    <!-- Add Review -->
+    <div class="my-3 w-4/12">
+        <form action="/l/<%= listing._id %>/addreview" method="post" autocomplete="off" class="flex flex-col py-3">
+            <label for="review" class="block text-zinc-800 text-md font-semibold">Add Review</label>
+        
+            <textarea 
+                name="review" 
+                id="review" 
+                cols="30" 
+                rows="3" 
+                class="border border-[1px] border-gray-300 text-sm rounded-lg focus:ring-synbnb focus:border-synbnb" 
+                placeholder="Write an review..."
+                required></textarea>
+            <div class="flex flex-row w-full justify-around mt-2">
+                <p class="font-semibold">Rate:</p>
+                <div class="flex flex-col items-center">
+                    <input id="rate" type="radio" value="1" name="rate" class="w-4 h-4 text-synbnb bg-gray-100 border-gray-300 focus:ring-synbnb focus:ring-2">
+                    <label for="rate" class="text-sm font-medium text-gray-900">1</label>
+                </div>
+                <div class="flex flex-col items-center">
+                    <input id="rate" type="radio" value="2" name="rate" class="w-4 h-4 text-synbnb bg-gray-100 border-gray-300 focus:ring-synbnb focus:ring-2">
+                    <label for="rate" class="text-sm font-medium text-gray-900">2</label>
+                </div>
+                <div class="flex flex-col items-center">
+                    <input id="rate" type="radio" value="3" name="rate" class="w-4 h-4 text-synbnb bg-gray-100 border-gray-300 focus:ring-synbnb focus:ring-2">
+                    <label for="rate" class="text-sm font-medium text-gray-900">3</label>
+                </div>
+                <div class="flex flex-col items-center">
+                    <input id="rate" type="radio" value="4" name="rate" class="w-4 h-4 text-synbnb bg-gray-100 border-gray-300 focus:ring-synbnb focus:ring-2">
+                    <label for="rate" class="text-sm font-medium text-gray-900">4</label>
+                </div>
+                <div class="flex flex-col items-center">
+                    <input id="rate" type="radio" value="5" name="rate" class="w-4 h-4 text-synbnb bg-gray-100 border-gray-300 focus:ring-synbnb focus:ring-2">
+                    <label for="rate" class="text-sm font-medium text-gray-900">5</label>
+                </div>
+            </div>
+            <button type="submit" class="listing-button mt-3">Post</button>
         </form>
     </div>
 </div>
@@ -123,4 +200,6 @@
         }
       }
     }
+
+ 
 </script>

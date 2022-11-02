@@ -2,6 +2,7 @@ const Listing = require('../models/listing');
 const { randImage } = require('./randomImage');
 const timeAgo = require('timeago.js');
 const cities = require('../seeds/cities');
+const moment = require('moment');
 
 module.exports = {
     // To view all listings
@@ -34,7 +35,7 @@ module.exports = {
         const { id } = req.params;
         try {
             const listing = await Listing.findById(id);
-            res.render('listings/listing', { listing }) 
+            res.render('listings/listing', { listing, moment: moment }) 
         } catch (error) {
             console.log(error);
         }
@@ -42,9 +43,10 @@ module.exports = {
     // To add review
     addReview: async(req, res) => {
         const { id } = req.params;
-        const { review } = req.body; // to add rate
+        const { review, rate } = req.body; // to add rate
         const rev = await Listing.findById(id);
-        rev.review.push({ review_author: "Jay", review: review, rate: 5.00 });
+        console.log(rate)
+        rev.review.push({ review_author: "Jay", review: review, rate: rate });
         await Listing.findByIdAndUpdate(id, rev, { new: true });
         res.redirect(`/l/${rev._id}`);
     },
