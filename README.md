@@ -17,4 +17,4 @@
 
 Overall, it was an amazing experience to learn more about Node JS. 🤝 I will keep learning on this stack and deep dive into it. Keep coding! 💪
 
-You can visit <a href="https://bayan-synbnb.onrender.com/">here</a> the final project.
+You can visit <a href="https://bayan-synbnb.onrender.com/" target="_blank">here</a> the final project.
