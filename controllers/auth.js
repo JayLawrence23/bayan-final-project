@@ -28,7 +28,7 @@ module.exports = {
             const listing = await Listing.find({});
             
             console.log(token);
-            res.json(token);
+   
             res.render('index', { username: username, listing });
         } catch (error) {
             console.log(error);
