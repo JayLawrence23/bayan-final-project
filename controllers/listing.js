@@ -1,6 +1,5 @@
 const Listing = require('../models/listing');
 const { randImage } = require('./randomImage');
-const timeAgo = require('timeago.js');
 const cities = require('../seeds/cities');
 const moment = require('moment');
 

@@ -1,39 +1,38 @@
 <% layout('/layouts/boilerplate') -%> 
-
-<main class="">
-    <div>
-        <h2>List you listing on SynBNB</h2>
+<div class="flex flex-col justify-center items-center">
+    <div class="items-left my-5">
+        <h2 class="text-lg font-bold">List your property on <span class="text-synbnb">SynBNB</span> </h2>
     </div>
-
+    
     <form action="/l/new" method="post">
-        <div>
+        <div class="flex flex-col justify-center">
             <section>
-                <label for="name">Name of listing:</label>
-                <input type="text" name="name">
+                <label class="labelinput" for="name">Name of listing:</label>
+                <input class="inputfield" type="text" name="name" placeholder="Name of your property">
             </section>
             <section>
-                <label for="desc">Description:</label>
-                <textarea name="desc" id="desc" cols="30" rows="5">
-                </textarea>
+                <label class="labelinput" for="desc">Description:</label>
+                <textarea class="inputfield" name="desc" id="desc" cols="30" rows="5" placeholder="Write some descriptions..."></textarea>
             </section>
             <section>
-                <label for="location">Location:</label>
-                <select name="location" id="location">
+                <label class="labelinput" for="location">Location: <span class="text-xs">(City and State - e.g. Makati City, Makati)</span></label>
+                <select class="inputfield" name="location" id="location">
                     <% for(let c of cities) { %> 
                         <option value="<%= `${c.city}, ${c.admin_name}` %>"> <%= `${c.city}, ${c.admin_name}` %> </option>
                     <% } %> 
                 </select>
             </section>
             <section>
-                <label for="guest">Number of Guest:</label>
-                <input type="number" min="1" name="guest">
+                <label class="labelinput" for="guest">Number of Guest:</label>
+                <input class="inputfield" type="number" min="1" name="guest" placeholder="e.g. 2">
             </section>
             <section>
-                <label for="price">Price:</label>
-                <input type="number" min="1" step="any" name="price">
+                <label class="labelinput" for="price">Price per night:</label>
+                <input class="inputfield" type="number" min="1" step="any" name="price" placeholder="e.g. 4500">
             </section>
         </div>
-
-        <button>Add to List</button>
+    
+        <button class="listing-button my-2">Add to List</button>
     </form>
-</main>
+    
+</div>

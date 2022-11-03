@@ -27,7 +27,7 @@
           content-visibility: auto;
         }
         .listing-button {
-          padding-block: 4px;
+          padding-block: 6px;
           padding-inline: 13px;
           background-color: #FF5A5F;
           font-size: 1.12rem;
@@ -40,6 +40,14 @@
         .listing-button:hover {
           margin-left: 4px;
 
+        }
+      }
+      @layer components {
+        .inputfield {
+          @apply rounded-xl focus:ring-synbnb focus:border-synbnb mb-2 w-full border border-gray-300
+        }
+        .labelinput {
+          @apply block text-sm my-2 font-medium text-neutral-900 
         }
       }
     </style>

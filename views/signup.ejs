@@ -1,0 +1,31 @@
+<% layout('/layouts/boilerplate') -%> 
+
+<div class="flex flex-col justify-center items-center">
+    <div class="items-left my-5">
+        <h2 class="text-lg font-bold">Register an Account</h2>
+    </div>
+    <% if(message) { %>
+        <div id="alert-2" class="flex p-4 mb-4 bg-red-100 rounded-lg" role="alert">
+            <svg aria-hidden="true" class="flex-shrink-0 w-5 h-5 text-red-700" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"></path></svg>
+            <span class="sr-only">Info</span>
+            <div class="ml-3 text-sm font-medium text-red-700">
+                <%= message %> 
+            </div>
+        </div>
+    <% } %> 
+    <form action="/a/signup" method="post">
+        <div>
+            <section>
+                <label class="labelinput" for="username">Username</label>
+                <input class="inputfield" type="text" name="username"> 
+            </section>
+            <section>
+                <label class="labelinput" for="password">Password:</label>
+                <input class="inputfield" type="password" name="password" id="password">
+            </section>
+        </div>
+
+        <button class="listing-button my-3">Sign Up</button>
+        <a class="mx-2 text-zinc-700" href="/signin">Login</a>
+    </form>
+</div>

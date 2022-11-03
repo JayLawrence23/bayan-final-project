@@ -1,39 +1,38 @@
 <% layout('/layouts/boilerplate') -%> 
 
-<main class="">
-    <div>
-        <h2>Edit your listing</h2>
+<div class="flex flex-col justify-center items-center">
+    <div class="items-left my-5">
+        <h2 class="text-lg font-bold">Edit your listing</h2>
     </div>
-
     <form action="/l/<%= listing._id%>?_method=PUT" method="post">
         <div>
             <section>
-                <label for="name">Name of listing:</label>
-                <input type="text" name="name" value="<%= listing.name %> ">
+                <label class="labelinput" for="name">Name of listing:</label>
+                <input class="inputfield" type="text" name="name" value="<%= listing.name %> ">
             </section>
             <section>
-                <label for="desc">Description:</label>
-                <textarea name="desc" id="desc" cols="30" rows="5"><%= listing.desc %> 
-                </textarea>
+                <label class="labelinput" for="desc">Description:</label>
+                <textarea class="inputfield" name="desc" id="desc" cols="30" rows="5"><%= listing.desc %></textarea>
             </section>
             <section>
-                <label for="location">Location:</label>
-                <select name="location" id="location">
+                <label class="labelinput" for="location">Location:</label>
+                <select class="inputfield" name="location" id="location">
                     <% for(let c of cities) { %> 
                     <option value="<%= `${c.city}, ${c.admin_name}` %>" <%= listing.location === `${c.city}, ${c.admin_name}` ? 'selected' : '' %> > <%= `${c.city}, ${c.admin_name}` %> </option>
                     <% } %> 
                 </select>
             </section>
             <section>
-                <label for="guest">Number of Guest:</label>
-                <input type="number" min="1" name="guest" value="<%= listing.guest %>">
+                <label class="labelinput" for="guest">Number of Guest:</label>
+                <input class="inputfield" type="number" min="1" name="guest" value="<%= listing.guest %>">
             </section>
             <section>
-                <label for="price">Price:</label>
-                <input type="number" min="1" step="any" name="price" value="<%= listing.price %>">
+                <label class="labelinput" for="price">Price:</label>
+                <input class="inputfield" type="number" min="1" step="any" name="price" value="<%= listing.price %>">
             </section>
         </div>
 
-        <button>Update List</button>
+        <button class="listing-button my-3">Update List</button>
+        <a class="mx-2 text-zinc-700" href="/l/<%= listing._id %>">Cancel</a>
     </form>
-</main>
+</div>
