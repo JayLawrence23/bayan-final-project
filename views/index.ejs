@@ -23,6 +23,20 @@
 
         <div>
           <p class="font-normal text-xs text-gray-400"><%= list.guest %>  guests</p>
+          <lord-icon
+            src="https://cdn.lordicon.com/whttoese.json"
+            <% if(list.review.length > 0) { %> 
+            trigger="loop"
+            delay="1000"
+            <% } else { %> 
+            trigger="morph"
+            <% } %> 
+            class="p-1 mr-1"
+            colors="primary:#ee6d66,secondary:#FF5A5F"
+            style="width:22px;height:22px">
+          </lord-icon>
+
+          <%= list.review.length %> Reviews
           <h4 class="font-semibold">₱<%= list.price %>/night</h4>
         </div>
       </div>

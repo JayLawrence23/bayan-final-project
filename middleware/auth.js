@@ -1,17 +1,18 @@
 const jwt = require("jsonwebtoken");
+const Auth = require('../models/auth');
+const store = require("store2");
 
 const config = process.env;
 
-const verifyToken = (req, res, next) => {
-  const token =
-    req.body.token || req.query.token || req.headers["x-access-token"];
+const verifyToken = async (req, res, next) => {
+  const token = store('token');
 
-  if (!token) {
+  const result = await Auth.findOne({ token: token})
+  if (!result) {
     return res.redirect('/signin?errormsg=addlisterror');
   }
   try {
-    const decoded = jwt.verify(token, config.TOKEN_KEY);
-    req.user = decoded;
+    console.log(token)
     next();
   } catch (err) {
     return res.status(401).send("Invalid Token");

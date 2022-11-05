@@ -3,6 +3,7 @@ const Listing = require('../models/listing');
 
 const jwt = require("jsonwebtoken");
 const bcrypt = require('bcryptjs');
+const store = require("store2");
 
 module.exports = {
     // To view all listings
@@ -26,9 +27,9 @@ module.exports = {
                 }
             );
             const listing = await Listing.find({});
-            
-            console.log(token);
-   
+                 
+            await Auth.findByIdAndUpdate(existingUser._id, { token: token },{ new: true });
+            // store.setAll({ username: result.username, token: result.token });
             res.render('index', { username: username, listing });
         } catch (error) {
             console.log(error);
@@ -44,7 +45,7 @@ module.exports = {
     
             const hashedPassword = await bcrypt.hash(password, 12);
     
-            const result = await Auth.create({ username: username, password: hashedPassword});
+            
             const listing = await Listing.find({});
     
             const token = jwt.sign(
@@ -55,8 +56,8 @@ module.exports = {
                 }
             );
 
-            console.log(token);
-            res.render('index', { username: username, listing });
+            const result = await Auth.create({ username: username, password: hashedPassword, token: token});
+            res.redirect('/');
         } catch (error) {
             res.status(500).json( {message: "Something went wrong. "});
         }

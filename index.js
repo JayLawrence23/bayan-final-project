@@ -6,6 +6,7 @@ const mongoose = require('mongoose');
 const methodOverride = require('method-override')
 const dotenv = require('dotenv')
 const ejsMate = require('ejs-mate')
+const store = require("store2");
 
 // Routes
 const listingRoutes = require('./routes/listing');
@@ -32,9 +33,15 @@ app.set('views', path.join(__dirname, 'views'));
 
 // to view all listings
 app.get('/', async (req, res) => {
+
     try {
         const listing = await Listing.find({});
-        res.render('index', { listing }) 
+        if(store('token')){
+            res.render('index', { listing }) 
+        }
+        else {
+            res.render('index', { listing }) 
+        }
     } catch (error) {
         console.log(error);
     }
