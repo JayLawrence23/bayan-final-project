@@ -47,7 +47,7 @@ app.get('/', async (req, res) => {
     }
 })
 // router of web pages
-app.get('/l/new', auth, (req, res) => { 
+app.get('/l/new', (req, res) => { 
     res.render('listings/new', { cities }); 
 })
 app.get('/signin', (req, res) => { 

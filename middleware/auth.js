@@ -12,7 +12,7 @@ const verifyToken = async (req, res, next) => {
     return res.redirect('/signin?errormsg=addlisterror');
   }
   try {
-    console.log(token)
+    console.log(result)
     next();
   } catch (err) {
     return res.status(401).send("Invalid Token");
