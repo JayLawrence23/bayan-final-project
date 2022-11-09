@@ -9,7 +9,8 @@
 • Request and Response Objects <br>
 • Express Routing <br>
 • Dynamic HTML with Templating (EJS) <br>
-• RESTful APIs and Routes <br>
+• RESTful APIs <br>
+• Routes <br>
 • NoSQL Database (MongoDB) <br>
 • Connection of MongoDB with Mongoose <br>
 • Mongoose with Express <br>
